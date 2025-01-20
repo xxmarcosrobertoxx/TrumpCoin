@@ -1,5 +1,5 @@
-// Inicialize o Mercado Pago
-const mp = new MercadoPago('APP_USR-39534f64-cb2b-4c81-b23d-a2fa22f78f3b', { locale: 'pt-BR' }); // Substitua YOUR_PUBLIC_KEY pela sua chave pública
+// Inicialize o Mercado Pago com a chave pública
+const mp = new MercadoPago('YOUR_PUBLIC_KEY', { locale: 'pt-BR' }); // Substitua YOUR_PUBLIC_KEY pela sua chave pública
 
 // Handle do envio do formulário
 document.getElementById("investment-form").addEventListener("submit", function(event) {
@@ -12,7 +12,7 @@ document.getElementById("investment-form").addEventListener("submit", function(e
         return;
     }
 
-    // Criação da preferência de pagamento
+    // Criação da preferência de pagamento no Mercado Pago
     mp.createPreference({
         items: [
             {

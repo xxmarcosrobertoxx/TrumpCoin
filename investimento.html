@@ -3,41 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Invista na TrumpCoin e veja o crescimento da sua criptomoeda. Formulário de investimento e pagamento via Pix.">
+    <meta name="keywords" content="investimento, TrumpCoin, criptomoeda, Pix, pagamento, investimento em criptomoedas">
     <title>Investir na TrumpCoin</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <header>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="sobre.html">Sobre</a>
-            <a href="investimento.html">Investir</a>
-            <a href="faq.html">FAQ</a>
-            <a href="contato.html">Contato</a>
-        </nav>
+        <h1>Investir na TrumpCoin</h1>
     </header>
-    
-    <section class="investimento">
-        <h1>Faça seu Investimento</h1>
-        <form id="form-investimento">
-            <label for="quantidade">Quantia para Investir:</label>
-            <input type="number" id="quantidade" name="quantidade" required>
-            <label for="moeda">Escolha a Moeda:</label>
-            <select id="moeda" name="moeda">
-                <option value="BRL">Real</option>
-                <option value="USD">Dólar</option>
-                <option value="EUR">Euro</option>
-            </select>
+
+    <section id="formulario-investimento">
+        <h2>Quantia a Investir</h2>
+        <form>
+            <label for="quantidade">Digite o valor que deseja investir (em R$):</label>
+            <input type="number" id="quantidade" name="quantidade" placeholder="Digite o valor" required>
             <button type="submit">Investir</button>
         </form>
-        <p>Pagamento via <strong>Pix</strong> (QR Code abaixo):</p>
-        <img src="assets/qr-code.png" alt="QR Code Pix">
     </section>
-    
+
+    <section id="pix">
+        <h2>Pagamento via Pix</h2>
+        <p>Escaneie o QR Code abaixo para realizar o pagamento via Pix:</p>
+        <img src="assets/pix_qr_code.png" alt="QR Code Pix">
+    </section>
+
+    <section id="confirmacao">
+        <p id="mensagem-confirmacao" style="display:none;">Investimento realizado com sucesso! Seu pagamento foi processado e será refletido em breve.</p>
+    </section>
+
     <footer>
-        <p>&copy; 2025 TrumpCoin. Todos os direitos reservados.</p>
+        <a href="index.html">Voltar à Página Inicial</a>
     </footer>
-    
-    <script src="js/script.js"></script>
+
+    <script src="assets/script.js"></script>
 </body>
 </html>

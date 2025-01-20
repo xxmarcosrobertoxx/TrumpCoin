@@ -1,8 +1,7 @@
-// Verifique se o Mercado Pago já está carregado corretamente
-if (!window.MercadoPago) {
-    console.error("Erro: Mercado Pago não foi carregado.");
-}
+// Inicialize o Mercado Pago
+const mp = new MercadoPago('APP_USR-39534f64-cb2b-4c81-b23d-a2fa22f78f3b', { locale: 'pt-BR' }); // Substitua YOUR_PUBLIC_KEY pela sua chave pública
 
+// Handle do envio do formulário
 document.getElementById("investment-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -13,8 +12,8 @@ document.getElementById("investment-form").addEventListener("submit", function(e
         return;
     }
 
-    // Criação da preferência de pagamento no Mercado Pago
-    window.MercadoPago.createPreference({
+    // Criação da preferência de pagamento
+    mp.createPreference({
         items: [
             {
                 title: "Investimento TrumpCoin",
@@ -23,14 +22,14 @@ document.getElementById("investment-form").addEventListener("submit", function(e
             }
         ],
         back_urls: {
-            success: "https://www.suaurl.com/success",
-            failure: "https://www.suaurl.com/failure",
-            pending: "https://www.suaurl.com/pending"
+            success: "https://www.suaurl.com/success",   // Substitua com sua URL de sucesso
+            failure: "https://www.suaurl.com/failure",   // Substitua com sua URL de falha
+            pending: "https://www.suaurl.com/pending"    // Substitua com sua URL de pendência
         },
         auto_return: "approved",
         payment_methods: {
             excluded_payment_types: [
-                { id: "ticket" }
+                { id: "ticket" } // Excluindo boleto
             ]
         }
     }).then(function(response) {
@@ -46,7 +45,7 @@ document.getElementById("investment-form").addEventListener("submit", function(e
         });
 
         // Exibe a seção do Pix
-        document.getElementById("pix-section").style.display = 'block';
+        document.querySelector(".pix-section").style.display = 'block';
     }).catch(function(error) {
         console.error('Erro ao criar a preferência:', error);
         alert('Houve um erro ao processar seu pagamento.');

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Invista na TrumpCoin e veja o crescimento da sua criptomoeda. Formulário de investimento e pagamento via Pix.">
+    <meta name="keywords" content="investimento, TrumpCoin, criptomoeda, Pix, pagamento, investimento em criptomoedas">
+    <title>Investir na TrumpCoin</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="centered-container">
+        <img src="assets/logo_trumpcoin.png" alt="TrumpCoin Logo" class="logo">
+        <h1>Invista na TrumpCoin</h1>
+    </header>
+
+    <section class="investment-form centered-container">
+        <h2>Quantia a Investir</h2>
+        <form id="investment-form">
+            <label for="quantidade">Valor a Investir (R$):</label>
+            <input type="number" id="quantidade" name="quantidade" placeholder="Digite o valor" required>
+            <button type="submit" class="cta-button">Investir</button>
+        </form>
+    </section>
+
+    <section class="pix-section centered-container">
+        <h2>Pagamento via Pix</h2>
+        <p>Escaneie o QR Code abaixo para realizar o pagamento via Pix:</p>
+        <img src="assets/pix_qr_code.png" alt="QR Code Pix">
+
+        <h3>Informações para pagamento via Pix:</h3>
+        <ul>
+            <li><strong>Nome:</strong> Marcos Roberto Correia</li>
+            <li><strong>CPF:</strong> 126.761.496-01</li>
+            <li><strong>Banco:</strong> PicPay</li>
+        </ul>
+        <p>Após realizar o pagamento, aguarde a confirmação do seu investimento.</p>
+    </section>
+
+    <section class="confirmation centered-container">
+        <p id="mensagem-confirmacao" style="display:none;">Investimento realizado com sucesso! Seu pagamento foi processado e será refletido em breve.</p>
+    </section>
+
+    <footer class="centered-container">
+        <p>&copy; 2025 TrumpCoin. Todos os direitos reservados.</p>
+        <a href="index.html" class="footer-link">Voltar à Página Inicial</a>
+    </footer>
+
+    <script src="assets/script.js"></script>
+</body>
+</html>

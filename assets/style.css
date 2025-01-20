@@ -10,18 +10,28 @@ body {
     line-height: 1.6;
     background-color: #f4f4f4;
     color: #333;
+    height: 100vh;
+}
+
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 80vh;
 }
 
 header {
     background-color: #007BFF;
     color: white;
-    text-align: center;
     padding: 50px 20px;
     position: relative;
 }
 
 header .logo {
     max-width: 200px;
+    margin-bottom: 20px;
 }
 
 header h1 {
@@ -64,8 +74,8 @@ header p {
 
 section {
     padding: 40px 20px;
-    max-width: 1000px;
-    margin: 0 auto;
+    max-width: 800px;
+    width: 100%;
 }
 
 section h2 {
@@ -83,6 +93,7 @@ footer {
     color: white;
     padding: 10px 20px;
     text-align: center;
+    position: relative;
 }
 
 footer .footer-link {

@@ -1,103 +1,54 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Invista na TrumpCoin e veja o crescimento da sua criptomoeda. Formulário de investimento e pagamento via Pix.">
-    <meta name="keywords" content="investimento, TrumpCoin, criptomoeda, Pix, pagamento, investimento em criptomoedas">
-    <title>Investir na TrumpCoin</title>
-    <link rel="stylesheet" href="assets/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        /* Estilos como já discutidos antes */
-    </style>
-</head>
-<body>
-    <header>
-        <img src="assets/logo_trumpcoin.png" alt="TrumpCoin Logo" class="logo">
-        <h1>Invista na TrumpCoin</h1>
-    </header>
+// Verifique se o Mercado Pago já está carregado corretamente
+if (!window.MercadoPago) {
+    console.error("Erro: Mercado Pago não foi carregado.");
+}
 
-    <section class="investment-form">
-        <h2>Quantia a Investir</h2>
-        <form id="investment-form">
-            <label for="quantidade">Valor a Investir (R$):</label>
-            <input type="number" id="quantidade" name="quantidade" placeholder="Digite o valor" required>
-            <button type="submit" class="cta-button">Investir</button>
-        </form>
-    </section>
+document.getElementById("investment-form").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-    <section id="pix-section" class="pix-section" style="display: none;">
-        <h2>Pagamento via Pix</h2>
-        <p>Escaneie o QR Code abaixo para realizar o pagamento via Pix.</p>
-        <div id="qrcode-container"></div>
-        <p>Após realizar o pagamento, aguarde a confirmação do seu investimento.</p>
-    </section>
+    const quantidade = document.getElementById("quantidade").value;
 
-    <footer>
-        <p>&copy; 2025 TrumpCoin. Todos os direitos reservados.</p>
-        <a href="index.html" class="footer-link">Voltar à Página Inicial</a>
-    </footer>
+    if (!quantidade || isNaN(quantidade) || parseFloat(quantidade) <= 0) {
+        alert("Por favor, insira um valor válido.");
+        return;
+    }
 
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-    <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
-    <script>
-        // Substitua com sua chave de acesso do Mercado Pago
-        const mpAccessToken = 'APP_USR-5592641771064909-011400-5c0fac8b0a1bb1d197fd6d724d1446eb-2181716049';
-
-        // Ao submeter o formulário
-        document.getElementById("investment-form").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            const quantidade = document.getElementById("quantidade").value;
-            
-            if (quantidade <= 0) {
-                alert('Por favor, insira um valor válido para o investimento.');
-                return;
+    // Criação da preferência de pagamento no Mercado Pago
+    window.MercadoPago.createPreference({
+        items: [
+            {
+                title: "Investimento TrumpCoin",
+                unit_price: parseFloat(quantidade),
+                quantity: 1
             }
+        ],
+        back_urls: {
+            success: "https://www.suaurl.com/success",
+            failure: "https://www.suaurl.com/failure",
+            pending: "https://www.suaurl.com/pending"
+        },
+        auto_return: "approved",
+        payment_methods: {
+            excluded_payment_types: [
+                { id: "ticket" }
+            ]
+        }
+    }).then(function(response) {
+        const preference = response.body;
 
-            // Configura o Mercado Pago
-            window.MercadoPago.configurations.setAccessToken(mpAccessToken);
-
-            // Criação da preferência de pagamento
-            window.MercadoPago.createPreference({
-                items: [
-                    {
-                        title: "Investimento TrumpCoin",
-                        unit_price: parseFloat(quantidade),
-                        quantity: 1
-                    }
-                ],
-                back_urls: {
-                    success: "https://www.suaurl.com/success",
-                    failure: "https://www.suaurl.com/failure",
-                    pending: "https://www.suaurl.com/pending"
-                },
-                auto_return: "approved",
-                payment_methods: {
-                    excluded_payment_types: [
-                        { id: "ticket" }
-                    ]
-                }
-            }).then(function(response) {
-                const preference = response.body;
-
-                // Geração do QR Code
-                QRCode.toCanvas(document.getElementById('qrcode-container'), preference.init_point, function(error) {
-                    if (error) {
-                        console.error(error);
-                    } else {
-                        console.log('QR Code gerado com sucesso!');
-                    }
-                });
-
-                // Exibe a seção do Pix
-                document.getElementById("pix-section").style.display = 'block';
-            }).catch(function(error) {
-                console.error('Erro ao criar a preferência:', error);
-                alert('Houve um erro ao processar seu pagamento.');
-            });
+        // Geração do QR Code com a URL da preferência
+        QRCode.toCanvas(document.getElementById('qrcode-container'), preference.init_point, function(error) {
+            if (error) {
+                console.error(error);
+            } else {
+                console.log('QR Code gerado com sucesso!');
+            }
         });
-    </script>
-</body>
-</html>
+
+        // Exibe a seção do Pix
+        document.getElementById("pix-section").style.display = 'block';
+    }).catch(function(error) {
+        console.error('Erro ao criar a preferência:', error);
+        alert('Houve um erro ao processar seu pagamento.');
+    });
+});

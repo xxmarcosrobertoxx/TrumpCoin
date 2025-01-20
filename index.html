@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investimento em TrumpCoin</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Trump Coin</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Investimento em TrumpCoin</h1>
-        <p>Invista na próxima grande criptomoeda!</p>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#sobre">Sobre a TrumpCoin</a></li>
-            <li><a href="#investimento">Investimento</a></li>
-            <li><a href="#painel">Painel do Cliente</a></li>
-            <li><a href="#suporte">Suporte</a></li>
-            <li><a href="#seguranca">Segurança</a></li>
-            <li><a href="#testemunhos">Testemunhos</a></li>
-            <li><a href="#noticias">Notícias</a></li>
-        </ul>
-    </nav>
-    <section id="sobre">
-        <h2>Sobre a TrumpCoin
+    <h1>Trump Coin Finance</h1>
+    <div id="price-container">
+        <h2>Preço Atual</h2>
+        <p id="price">Carregando...</p>
+    </div>
+    <form id="purchase-form">
+        <label for="amount">Quantidade a Investir (R$):</label>
+        <input type="number" id="amount" required>
+        <button type="submit">Comprar</button>
+    </form>
+    <div id="payment-container" style="display: none;">
+        <h3>Pagamento</h3>
+        <img id="qr-code" alt="QR Code">
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

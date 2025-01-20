@@ -9,177 +9,7 @@
     <link rel="stylesheet" href="assets/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Estilo geral */
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #0a0a0a;
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            padding: 100px 20px;
-            background: linear-gradient(135deg, #004e92, #f39c12);
-            color: #fff;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        header .logo {
-            width: 150px;
-            margin-bottom: 20px;
-            border-radius: 50%;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        header h1 {
-            font-size: 3rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-top: 20px;
-        }
-
-        /* Section de Formulário de Investimento */
-        .investment-form {
-            padding: 60px 20px;
-            text-align: center;
-            background-color: #1c2a35;
-            margin-top: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .investment-form h2 {
-            font-size: 2.5rem;
-            color: #f39c12;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .investment-form label {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .investment-form input[type="number"] {
-            padding: 15px;
-            font-size: 1.2rem;
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 20px;
-            border: 2px solid #f39c12;
-            border-radius: 8px;
-            background-color: #2f3b49;
-            color: #fff;
-            text-align: center;
-        }
-
-        .investment-form button.cta-button {
-            background-color: #f39c12;
-            color: black;
-            font-size: 1.5rem;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .investment-form button.cta-button:hover {
-            background-color: #e67e22;
-            transform: translateY(-3px);
-        }
-
-        /* Seção de Pagamento via Pix */
-        .pix-section {
-            padding: 60px 20px;
-            background-color: #0d1f2d;
-            text-align: center;
-        }
-
-        .pix-section h2 {
-            font-size: 2.5rem;
-            color: #f39c12;
-            margin-bottom: 20px;
-        }
-
-        .pix-section ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .pix-section ul li {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        .pix-section p {
-            font-size: 1.1rem;
-            color: #aaa;
-        }
-
-        /* Seção de Confirmação */
-        .confirmation {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-        }
-
-        .confirmation p {
-            font-size: 1.5rem;
-            color: #2ecc71;
-            font-weight: bold;
-            display: none;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            background-color: #0d1f2d;
-            padding: 20px 0;
-            color: #fff;
-            font-size: 1.1rem;
-        }
-
-        footer .footer-link {
-            color: #f39c12;
-            text-decoration: none;
-            margin-top: 10px;
-            display: inline-block;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        footer .footer-link:hover {
-            color: #e67e22;
-            transform: translateY(-3px);
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            .investment-form h2, .pix-section h2 {
-                font-size: 2rem;
-            }
-
-            .investment-form input[type="number"] {
-                max-width: 90%;
-            }
-
-            footer {
-                font-size: 1rem;
-            }
-        }
+        /* Estilos como já discutidos antes */
     </style>
 </head>
 <body>
@@ -197,21 +27,11 @@
         </form>
     </section>
 
-    <section class="pix-section">
+    <section id="pix-section" class="pix-section" style="display: none;">
         <h2>Pagamento via Pix</h2>
-        <p>Para realizar o pagamento via Pix, utilize as informações abaixo:</p>
-
-        <h3>Informações para pagamento via Pix:</h3>
-        <ul>
-            <li><strong>Nome:</strong> Marcos Roberto Correia</li>
-            <li><strong>CPF:</strong> 126.761.496-01</li>
-            <li><strong>Banco:</strong> PicPay</li>
-        </ul>
+        <p>Escaneie o QR Code abaixo para realizar o pagamento via Pix.</p>
+        <div id="qrcode-container"></div>
         <p>Após realizar o pagamento, aguarde a confirmação do seu investimento.</p>
-    </section>
-
-    <section class="confirmation">
-        <p id="mensagem-confirmacao">Investimento realizado com sucesso! Seu pagamento foi processado e será refletido em breve.</p>
     </section>
 
     <footer>
@@ -219,6 +39,65 @@
         <a href="index.html" class="footer-link">Voltar à Página Inicial</a>
     </footer>
 
-    <script src="assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+    <script>
+        // Substitua com sua chave de acesso do Mercado Pago
+        const mpAccessToken = 'APP_USR-5592641771064909-011400-5c0fac8b0a1bb1d197fd6d724d1446eb-2181716049';
+
+        // Ao submeter o formulário
+        document.getElementById("investment-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const quantidade = document.getElementById("quantidade").value;
+            
+            if (quantidade <= 0) {
+                alert('Por favor, insira um valor válido para o investimento.');
+                return;
+            }
+
+            // Configura o Mercado Pago
+            window.MercadoPago.configurations.setAccessToken(mpAccessToken);
+
+            // Criação da preferência de pagamento
+            window.MercadoPago.createPreference({
+                items: [
+                    {
+                        title: "Investimento TrumpCoin",
+                        unit_price: parseFloat(quantidade),
+                        quantity: 1
+                    }
+                ],
+                back_urls: {
+                    success: "https://www.suaurl.com/success",
+                    failure: "https://www.suaurl.com/failure",
+                    pending: "https://www.suaurl.com/pending"
+                },
+                auto_return: "approved",
+                payment_methods: {
+                    excluded_payment_types: [
+                        { id: "ticket" }
+                    ]
+                }
+            }).then(function(response) {
+                const preference = response.body;
+
+                // Geração do QR Code
+                QRCode.toCanvas(document.getElementById('qrcode-container'), preference.init_point, function(error) {
+                    if (error) {
+                        console.error(error);
+                    } else {
+                        console.log('QR Code gerado com sucesso!');
+                    }
+                });
+
+                // Exibe a seção do Pix
+                document.getElementById("pix-section").style.display = 'block';
+            }).catch(function(error) {
+                console.error('Erro ao criar a preferência:', error);
+                alert('Houve um erro ao processar seu pagamento.');
+            });
+        });
+    </script>
 </body>
 </html>

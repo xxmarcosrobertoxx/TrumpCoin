@@ -8,12 +8,6 @@
     <title>Investir na TrumpCoin</title>
     <link rel="stylesheet" href="assets/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- CDN para QR Code -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
-    
-    <!-- SDK MercadoPago -->
-    <script src="https://sdk.mercadopago.com/js/v2"></script> 
 </head>
 <body>
     <header class="centered-container">
@@ -30,10 +24,26 @@
         </form>
     </section>
 
-    <section class="pix-section centered-container" style="display:none;">
+    <section class="pix-section centered-container">
         <h2>Pagamento via Pix</h2>
-        <p>Para realizar o pagamento via Pix, utilize o QR Code abaixo:</p>
-        <canvas id="qrcode-container"></canvas> <!-- Onde o QR Code será gerado -->
+        <p>Para realizar o pagamento via Pix, utilize as informações abaixo:</p>
+
+        <h3>Informações para pagamento via Pix:</h3>
+        <ul>
+            <li><strong>Nome:</strong> Marcos Roberto Correia</li>
+            <li><strong>CPF:</strong> 126.761.496-01</li>
+            <li><strong>Banco:</strong> PicPay</li>
+        </ul>
+        <p>Após realizar o pagamento, aguarde a confirmação do seu investimento.</p>
+    </section>
+
+    <section class="qrcode-section centered-container" id="qrcode-container" style="display:none;">
+        <h2>QRCode para Pagamento</h2>
+        <div id="qrcode"></div>
+    </section>
+
+    <section class="confirmation centered-container">
+        <p id="mensagem-confirmacao" style="display:none;">Investimento realizado com sucesso! Seu pagamento foi processado e será refletido em breve.</p>
     </section>
 
     <footer class="centered-container">
@@ -41,7 +51,38 @@
         <a href="index.html" class="footer-link">Voltar à Página Inicial</a>
     </footer>
 
-    <!-- Incluindo o script com a lógica de geração do QR Code -->
-    <script src="assets/script.js"></script>
+    <!-- Inclusão da biblioteca qrcode.min.js -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+    <!-- Script JavaScript -->
+    <script>
+        // Adicionando um listener ao formulário de investimento
+        document.getElementById('investment-form').addEventListener('submit', function(event) {
+            event.preventDefault();  // Previne o envio do formulário padrão
+
+            // Pegando o valor inserido pelo usuário
+            var valorInvestido = document.getElementById('quantidade').value;
+
+            // Valida se o valor foi preenchido corretamente
+            if (valorInvestido && parseFloat(valorInvestido) > 0) {
+                // Gerando o QR Code com as informações do pagamento via Pix
+                var pixCode = `00020101021126860014BR.GOV.BCB.PIX0114{SEU-CNPJ-OU-CPF-PIX}52040000530398654041${valorInvestido}5802BR5959{SUA-MENSAGEM-DE-PAGAMENTO}6304`;
+
+                // Exibindo a seção do QRCode
+                document.getElementById('qrcode-container').style.display = 'block';
+
+                // Gerando o QR Code
+                QRCode.toCanvas(document.getElementById('qrcode'), pixCode, function(error) {
+                    if (error) {
+                        console.error(error);
+                    } else {
+                        console.log('QR Code gerado com sucesso!');
+                    }
+                });
+            } else {
+                alert('Por favor, insira um valor válido.');
+            }
+        });
+    </script>
 </body>
 </html>

@@ -5,45 +5,184 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Invista na TrumpCoin e veja o crescimento da sua criptomoeda. Formulário de investimento e pagamento via Pix.">
     <meta name="keywords" content="investimento, TrumpCoin, criptomoeda, Pix, pagamento, investimento em criptomoedas">
-    <title>Investir na TrumpCoin</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <title>Invista na TrumpCoin</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Carregando a biblioteca QRCode -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1c1c1c;
+            color: #f0f0f0;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0;
+            background: linear-gradient(to right, #2980b9, #8e44ad);
+            color: #fff;
+        }
+
+        header h1 {
+            font-size: 3em;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            background-color: #f39c12;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #e67e22;
+        }
+
+        .investment-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background: #34495e;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .investment-form h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .investment-form input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .investment-form button {
+            width: 100%;
+            padding: 15px;
+            background-color: #f39c12;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .investment-form button:hover {
+            background-color: #e67e22;
+        }
+
+        .pix-section {
+            max-width: 800px;
+            margin: 50px auto;
+            text-align: center;
+            padding: 30px;
+            background: #2c3e50;
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        .pix-section h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .pix-section ul {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pix-section li {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .qrcode-container {
+            margin-top: 30px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #1c1c1c;
+            padding: 20px;
+            color: #fff;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: #f39c12;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <header class="centered-container">
-        <img src="assets/logo_trumpcoin.png" alt="TrumpCoin Logo" class="logo">
+    <header>
         <h1>Invista na TrumpCoin</h1>
+        <p>Faça parte do futuro financeiro e veja seu investimento crescer!</p>
+        <a href="#investment-form" class="cta-button">Comece Agora</a>
     </header>
 
-    <section class="investment-form centered-container">
+    <section class="investment-form" id="investment-form">
         <h2>Quantia a Investir</h2>
-        <form id="investment-form">
+        <form id="investment-form-submit">
             <label for="quantidade">Valor a Investir (R$):</label>
             <input type="number" id="quantidade" name="quantidade" placeholder="Digite o valor" required>
-            <button type="submit" class="cta-button">Investir</button>
+            <button type="submit">Gerar QR Code</button>
         </form>
     </section>
 
-    <section class="pix-section centered-container">
-        <h2>Pagamento via Pix</h2>
-        <p>Para realizar o pagamento via Pix, utilize as informações abaixo:</p>
+    <section class="pix-section">
+        <h3>Pagamento via Pix</h3>
+        <p>Use as informações abaixo para realizar o pagamento via Pix:</p>
 
-        <h3>Informações para pagamento via Pix:</h3>
         <ul>
             <li><strong>Nome:</strong> Marcos Roberto Correia</li>
             <li><strong>CPF:</strong> 126.761.496-01</li>
             <li><strong>Banco:</strong> PicPay</li>
         </ul>
+
         <p>Após realizar o pagamento, aguarde a confirmação do seu investimento.</p>
 
         <!-- Container para o QR Code -->
-        <div id="qrcode-container" style="margin-top: 20px;"></div>
+        <div id="qrcode-container" class="qrcode-container"></div>
     </section>
 
-    <section class="confirmation centered-container">
-        <p id="mensagem-confirmacao" style="display:none;">Investimento realizado com sucesso! Seu pagamento foi processado e será refletido em breve.</p>
-    </section>
+    <footer>
+        <p>&copy; 2025 TrumpCoin. Todos os direitos reservados.</p>
+        <a href="index.html">Voltar à Página Inicial</a>
+    </footer>
 
-    <footer class="ce
+    <script src="assets/script.js"></script>
+</body>
+</html>

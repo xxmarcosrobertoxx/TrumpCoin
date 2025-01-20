@@ -1,18 +1,20 @@
 // Inicialize o Mercado Pago com a chave pública
-const mp = new MercadoPago('APP_USR-39534f64-cb2b-4c81-b23d-a2fa22f78f3b', { locale: 'pt-BR' }); // Substitua YOUR_PUBLIC_KEY pela sua chave pública
+const mp = new MercadoPago('YOUR_PUBLIC_KEY', { locale: 'pt-BR' }); // Substitua 'YOUR_PUBLIC_KEY' pela sua chave pública
 
 // Handle do envio do formulário
 document.getElementById("investment-form").addEventListener("submit", function(event) {
-    event.preventDefault();
+    event.preventDefault(); // Previne o comportamento padrão do formulário
 
     const quantidade = document.getElementById("quantidade").value;
 
+    // Validação do valor
     if (!quantidade || isNaN(quantidade) || parseFloat(quantidade) <= 0) {
         alert("Por favor, insira um valor válido.");
         return;
     }
 
-    console.log('Valor de investimento:', quantidade); // Debug: Verificar valor inserido
+    // Log para depuração
+    console.log('Valor de investimento:', quantidade);
 
     // Criação da preferência de pagamento no Mercado Pago
     mp.createPreference({
@@ -36,7 +38,9 @@ document.getElementById("investment-form").addEventListener("submit", function(e
         }
     }).then(function(response) {
         const preference = response.body;
-        console.log('Preferência criada:', preference); // Debug: Verificar a resposta
+
+        // Log para depuração
+        console.log('Preferência criada:', preference);
 
         // Verificando se a URL de pagamento foi criada
         if (preference.init_point) {

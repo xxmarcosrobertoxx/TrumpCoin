@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Invista na TrumpCoin e veja o crescimento da sua criptomoeda. Formulário de investimento e pagamento via Pix.">
+    <meta name="description" content="Invista na TrumpCoin e veja o crescimento da sua criptomoeda. Pagamento via Pix.">
     <meta name="keywords" content="investimento, TrumpCoin, criptomoeda, Pix, pagamento, investimento em criptomoedas">
     <title>Invista na TrumpCoin</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Biblioteca QRCode -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <style>
         /* Reset básico */
@@ -54,48 +53,6 @@
         }
 
         .cta-button:hover {
-            background-color: #e67e22;
-        }
-
-        .investment-form {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 30px;
-            background: #34495e;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .investment-form h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #fff;
-            text-align: center;
-        }
-
-        .investment-form input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            color: #333;
-        }
-
-        .investment-form button {
-            width: 100%;
-            padding: 15px;
-            background-color: #f39c12;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .investment-form button:hover {
             background-color: #e67e22;
         }
 
@@ -150,17 +107,7 @@
     <header>
         <h1>Invista na TrumpCoin</h1>
         <p>Faça parte do futuro financeiro e veja seu investimento crescer!</p>
-        <a href="#investment-form" class="cta-button">Comece Agora</a>
     </header>
-
-    <section class="investment-form" id="investment-form">
-        <h2>Quantia a Investir</h2>
-        <form id="investment-form-submit">
-            <label for="quantidade">Valor a Investir (R$):</label>
-            <input type="number" id="quantidade" name="quantidade" placeholder="Digite o valor" required>
-            <button type="submit">Gerar QR Code</button>
-        </form>
-    </section>
 
     <section class="pix-section">
         <h3>Pagamento via Pix</h3>
@@ -174,7 +121,6 @@
 
         <p>Após realizar o pagamento, aguarde a confirmação do seu investimento.</p>
 
-        <!-- Container para o QR Code -->
         <div id="qrcode-container" class="qrcode-container"></div>
     </section>
 
@@ -182,39 +128,5 @@
         <p>&copy; 2025 TrumpCoin. Todos os direitos reservados.</p>
         <a href="index.html">Voltar à Página Inicial</a>
     </footer>
-
-    <script>
-        document.getElementById("investment-form-submit").addEventListener("submit", async function (e) {
-            e.preventDefault();
-
-            const amount = document.getElementById("quantidade").value;
-
-            if (amount <= 0) {
-                alert("Por favor, insira um valor válido.");
-                return;
-            }
-
-            try {
-                // Faz a requisição para o backend gerar o QR Code
-                const response = await fetch("http://localhost:5000/generate_qrcode", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ amount }),
-                });
-
-                const data = await response.json();
-
-                // Renderiza o QR Code no frontend
-                const qrcodeContainer = document.getElementById("qrcode-container");
-                qrcodeContainer.innerHTML = ""; // Limpa o conteúdo anterior
-                new QRCode(qrcodeContainer, data.qrcode_url);
-            } catch (error) {
-                console.error("Erro ao gerar QR Code:", error);
-                alert("Houve um erro ao gerar o QR Code. Tente novamente.");
-            }
-        });
-    </script>
 </body>
 </html>

@@ -7,7 +7,7 @@
     <meta name="keywords" content="investimento, TrumpCoin, criptomoeda, Pix, pagamento, investimento em criptomoedas">
     <title>Invista na TrumpCoin</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Carregando a biblioteca QRCode -->
+    <!-- Biblioteca QRCode -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <style>
         /* Reset básico */
@@ -183,6 +183,38 @@
         <a href="index.html">Voltar à Página Inicial</a>
     </footer>
 
-    <script src="assets/script.js"></script>
+    <script>
+        document.getElementById("investment-form-submit").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const amount = document.getElementById("quantidade").value;
+
+            if (amount <= 0) {
+                alert("Por favor, insira um valor válido.");
+                return;
+            }
+
+            try {
+                // Faz a requisição para o backend gerar o QR Code
+                const response = await fetch("http://localhost:5000/generate_qrcode", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ amount }),
+                });
+
+                const data = await response.json();
+
+                // Renderiza o QR Code no frontend
+                const qrcodeContainer = document.getElementById("qrcode-container");
+                qrcodeContainer.innerHTML = ""; // Limpa o conteúdo anterior
+                new QRCode(qrcodeContainer, data.qrcode_url);
+            } catch (error) {
+                console.error("Erro ao gerar QR Code:", error);
+                alert("Houve um erro ao gerar o QR Code. Tente novamente.");
+            }
+        });
+    </script>
 </body>
 </html>
